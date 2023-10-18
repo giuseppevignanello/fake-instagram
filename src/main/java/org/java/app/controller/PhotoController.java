@@ -86,4 +86,36 @@ public class PhotoController {
 		return "index";
 		
 	}
+	
+	@GetMapping("/edit/{id}")
+	public String edit (@PathVariable int id, Model model) {
+		List<Category> categories = categoryService.findAll();
+		model.addAttribute("photo", photoService.findById(id));
+		model.addAttribute("categories", categories); 
+		return "edit"; 
+		
+	}
+	
+	@PostMapping("/edit/{id}")
+	public String update(@Valid @ModelAttribute Photo photo,
+			BindingResult bindingResult, Model model) {
+		List<Photo> photos = photoService.findAll(); 
+		model.addAttribute("photos", photos);
+		
+		if(bindingResult.hasErrors()) {
+			System.out.println("Error: ");
+			bindingResult.getAllErrors().forEach(System.out::println);
+			return "edit";
+		}
+		
+		try {
+			photoService.save(photo); 
+		} catch (Exception e) {
+			System.out.println("Errors: " + e.getClass().getSimpleName());
+			return "edit";
+		}
+		return "index";
+	}
+				
 }
+
