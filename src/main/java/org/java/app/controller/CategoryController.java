@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -58,6 +59,24 @@ public class CategoryController {
 		}
 				return "redirect:/categories";
 				
+	}
+	
+	@PostMapping("delete/{id}")
+	public String delete(@PathVariable int id, Category category, Model model) {
+		List<Category> categories = categoryService.findAll();
+		model.addAttribute("categories", categories); 
+		Category categoryToDelete = categoryService.findById(id);
+		
+		if(categoryToDelete != null) {
+			List <Photo> photos = photoService.findAll(); 
+			for(Photo photo: photos) {
+				photo.removeCategory(categoryToDelete); 
+				photoService.save(photo);
+			}
+			
+			categoryService.delete(categoryToDelete);
+		}
+		return "redirect:/categories"; 
 		
 	}
 }

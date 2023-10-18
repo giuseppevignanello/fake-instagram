@@ -4,19 +4,24 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Ingredienti</title>
+	<title>Categories</title>
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
 </head>
 
 <body>
 
+	<a href="categories/create">Add a new category</a>
 	<ul>
-		<a href="categories/create">Add a new category</a>
-		<li th:each = "category: ${categories}">
+
+		<li th:each="category: ${categories}">
 			<p>[[${category.name}]]</p>
+			<form th:action="@{'/categories/delete/' + ${category.id}}" method="post">
+			<input type="submit" value="DELETE">
+		</form>
 		</li>
+		
 	</ul>
-	
+
 </body>
 
 </html>
