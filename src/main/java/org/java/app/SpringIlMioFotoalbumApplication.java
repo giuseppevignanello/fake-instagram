@@ -1,5 +1,9 @@
 package org.java.app;
 
+import org.java.app.auth.pojo.Role;
+import org.java.app.auth.pojo.User;
+import org.java.app.auth.service.RoleService;
+import org.java.app.auth.service.UserService;
 import org.java.app.pojo.Category;
 import org.java.app.pojo.Photo;
 import org.java.app.service.CategoryService;
@@ -8,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
@@ -17,6 +22,11 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 	
 	@Autowired 
 	private CategoryService categoryService;
+	
+	@Autowired
+	private RoleService roleService;
+	@Autowired
+	private UserService userService;
 	
 	
 	public static void main(String[] args) {
@@ -46,7 +56,21 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		categoryService.save(macro);
 		categoryService.save(wildlife);
 		categoryService.save(street);
-
+		
+		Role admin = new Role("ADMIN");
+		Role user = new Role("USER");
+		
+		roleService.save(admin);
+		roleService.save(user);
+		
+		final String pwsAdmin = new BCryptPasswordEncoder().encode("password");
+		final String pwsUser = new BCryptPasswordEncoder().encode("password");
+		
+		User myAdmin = new User("admin", pwsAdmin, admin, user);
+		User myUser = new User("user", pwsUser, user);
+		
+		userService.save(myAdmin);
+		userService.save(myUser);
 
 	}
 

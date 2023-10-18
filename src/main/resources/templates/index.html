@@ -10,7 +10,7 @@
 
 <body>
 	<a href="/categories"> See all the categories</a>
-	<a href="/create"> Add new photo </a>
+	<a href="/create" sec:authorize="hasAnyAuthority('ADMIN')"> Add new photo </a>
 	<ul>
 		<li th:each="photo: ${photos}">
 			<a th:href="@{'/' + ${photo.id}}">
