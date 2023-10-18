@@ -10,7 +10,12 @@
 
 <body>
 	<a href="/categories"> See all the categories</a>
-	<a href="/create" sec:authorize="hasAnyAuthority('ADMIN')"> Add new photo </a>
+	<a href="/create"> Add new photo </a>
+	<form>
+		<label for="title">Search a photo</label>
+		<input type="text" name="title">
+		<button type="submit">Search</button>
+	</form>
 	<ul>
 		<li th:each="photo: ${photos}">
 			<a th:href="@{'/' + ${photo.id}}">

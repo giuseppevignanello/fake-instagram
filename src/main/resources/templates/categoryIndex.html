@@ -10,7 +10,7 @@
 
 <body>
 
-	<a href="categories/create" sec:authorize="hasAuthority('ADMIN')">Add a new category</a>
+	<a href="categories/create">Add a new category</a>
 	<ul>
 
 		<li th:each="category: ${categories}">

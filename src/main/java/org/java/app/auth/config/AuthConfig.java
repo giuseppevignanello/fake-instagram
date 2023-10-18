@@ -16,12 +16,12 @@ public class AuthConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
-		http.authorizeHttpRequests()
-				.requestMatchers("/create").hasAuthority("ADMIN")
-				.requestMatchers("/update/**").hasAuthority("ADMIN")
-				.requestMatchers("/delete/**").hasAuthority("ADMIN")
-				.requestMatchers("/categories/create").hasAuthority("ADMIN")
-				.requestMatchers("/categories/delete/**").hasAuthority("ADMIN")
+		http.csrf().disable().authorizeHttpRequests()
+				.requestMatchers("/create").hasAnyAuthority("ADMIN", "USER")
+				.requestMatchers("/update/**").hasAnyAuthority("ADMIN", "USER")
+				.requestMatchers("/delete/**").hasAnyAuthority("ADMIN", "USER")
+				.requestMatchers("/categories/create").hasAnyAuthority("ADMIN", "USER")
+				.requestMatchers("/categories/delete/**").hasAnyAuthority("ADMIN", "USER")
 				.requestMatchers("/**").permitAll().and().formLogin().defaultSuccessUrl("/")
 				.and().logout();
 
