@@ -68,21 +68,21 @@ public class Photo {
 
 	
 
-	private void setTitle(String title) {
+	public void setTitle(String title) {
 		this.title = title;
 		
 	}
 	
-	private void setDescription(String description) {
+	public void setDescription(String description) {
 		this.description = description;
 		
 	}
-	private void setUrl(String url) {
+	public void setUrl(String url) {
 		this.url = url;
 		
 	}
 	
-	private void setVisible(boolean visible) {
+	public void setVisible(boolean visible) {
 		this.visible = visible;
 		
 	}

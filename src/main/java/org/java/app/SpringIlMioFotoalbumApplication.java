@@ -1,6 +1,8 @@
 package org.java.app;
 
+import org.java.app.pojo.Category;
 import org.java.app.pojo.Photo;
+import org.java.app.service.CategoryService;
 import org.java.app.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -12,6 +14,9 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 
 	@Autowired
 	private PhotoService photoService;
+	
+	@Autowired 
+	private CategoryService categoryService;
 	
 	
 	public static void main(String[] args) {
@@ -27,6 +32,22 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		photoService.save(photo1); 
 		photoService.save(photo2); 
 		photoService.save(photo3);
+		
+		
+		Category landscape = new Category("landscape");
+		Category portrait = new Category("portrait");
+		Category macro = new Category("macro");
+		Category wildlife = new Category("wildlife");
+		Category street = new Category("street");
+		
+		
+		categoryService.save(landscape);
+		categoryService.save(portrait);
+		categoryService.save(macro);
+		categoryService.save(wildlife);
+		categoryService.save(street);
+
+
 	}
 
 }
