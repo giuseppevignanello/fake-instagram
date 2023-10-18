@@ -1,6 +1,7 @@
 package org.java.app.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.java.app.pojo.Photo;
 import org.java.app.repo.PhotoRepo;
@@ -24,5 +25,10 @@ public class PhotoService {
 	public List<Photo> filterByName(String photoTitle, String photoDescription) {
 		
 		return photoRepo.findByTitleContainingOrDescriptionContaining(photoTitle, photoDescription);
+	}
+
+	public Optional<Photo> findById(int id) {
+		return photoRepo.findById(id);
+		
 	}
 }

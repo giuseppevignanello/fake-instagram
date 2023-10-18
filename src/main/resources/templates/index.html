@@ -10,8 +10,10 @@
 
 <body>
 	<ul>
-		<li th:each ="photo: ${photos}">
-			<h2>[[${photo.title}]]</h2>
+		<li th:each="photo: ${photos}">
+			<a th:href="@{'/' + ${photo.id}}">
+				<h2>[[${photo.title}]]</h2>
+			</a>
 		</li>
 	</ul>
 </body>
