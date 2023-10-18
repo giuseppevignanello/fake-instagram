@@ -31,4 +31,9 @@ public class PhotoService {
 		return photoRepo.findById(id);
 		
 	}
+
+	public void delete(Photo photo) {
+		photoRepo.delete(photo);
+		
+	}
 }

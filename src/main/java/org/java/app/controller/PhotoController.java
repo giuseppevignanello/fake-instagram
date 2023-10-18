@@ -116,6 +116,16 @@ public class PhotoController {
 		}
 		return "index";
 	}
+	
+	@PostMapping("/delete/{id}") 
+	public String delete(@PathVariable int id, Photo photo, Model model) {
+		List<Photo> photos = photoService.findAll(); 
+		model.addAttribute("photos", photos); 
+		Optional<Photo> photoToDelete = photoService.findById(id);
+		photoService.delete(photoToDelete.get());
+;		return "redirect:/";
+	}
+
 				
 }
 

@@ -16,6 +16,9 @@
 				<h2>[[${photo.title}]]</h2>
 			</a>
 			<a th:href="@{'/edit/' + ${photo.id}}"> Edit</a>
+			<form th:action="@{'/delete/' + ${photo.id}}" method="post">
+				<input type="submit" value="DELETE" >
+			</form>
 		</li>
 	</ul>
 </body>
