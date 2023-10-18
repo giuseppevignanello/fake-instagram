@@ -19,7 +19,7 @@
 		<h5>Categories</h5>
 		<ul>
 			<li class="d-flex gap-2" th:each="category : *{categories}" th:object="${category}">
-				<p>[[*{title}]]</p>
+				<p>[[*{name}]]</p>
 			</li>
 		</ul>
     </div>

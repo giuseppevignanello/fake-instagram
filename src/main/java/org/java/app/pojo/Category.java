@@ -1,5 +1,6 @@
 package org.java.app.pojo;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
@@ -41,11 +42,48 @@ public class Category {
 		setName(name);
 	}
 	
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public void setName (String name) {
 		this.name = name;
 	}
 	
 	public String getName() {
 		return name;
+	}
+	
+	public List<Photo> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(List<Photo> photos) {
+		this.photos = photos;
+	}
+	
+	public boolean hasPhoto(Photo photo) {
+		if(getPhotos() == null) return false; 
+		for (Photo p : getPhotos())
+			if (p.getId() == photo.getId())
+				return true; 
+		return false;
+	}
+	
+	public void addPhotos (Photo ...photos) {
+		getPhotos().addAll(Arrays.asList(photos));
+	}
+	public void removePhotos(Photo ...photos) {
+		getPhotos().removeAll(Arrays.asList(photos));
+	}
+	
+	@Override
+	public String toString() {
+		return "[" + getId() + "]" + getName();
 	}
 }

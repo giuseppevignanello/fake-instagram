@@ -1,6 +1,8 @@
 package org.java.app.service;
 
 
+import java.util.List;
+
 import org.java.app.pojo.Category;
 import org.java.app.repo.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,5 +17,8 @@ public class CategoryService {
 	public void save(Category category) {
 		categoryRepo.save(category);
 	}
+
+	public List<Category> findAll() {
+		return categoryRepo.findAll();	}
 	
 }

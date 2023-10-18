@@ -117,6 +117,21 @@ public class Photo {
 		return categories;
 	}
 	
+	public boolean hasCategory(Category category) {
+		if(getCategories() == null) return false; 
+		for(Category c : getCategories())
+			if(category.getId() == c.getId())
+				return true; 
+		return false; 
+	}
+	
+	public void addCategory(Category category) {
+		getCategories().add(category); 
+	}
+	public void removeCategory(Category category) {
+		getCategories().remove(category);
+	}
+	
 	 @Override
 	    public String toString() {
 	        return "MiaClasse [title=" + title
