@@ -83,7 +83,7 @@ public class PhotoController {
 			return "create";
 		}
 		
-		return "index";
+		return "redirect:/";
 		
 	}
 	
