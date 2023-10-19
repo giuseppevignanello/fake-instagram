@@ -2,6 +2,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import AppHeader from './AppHeader.vue';
 const apiUrl = "http://localhost:8080/api/v1.0";
 const photos = ref(null);
 const search = ref(false);
@@ -47,6 +48,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <AppHeader></AppHeader>
   <div>
     <div>
       <form @submit.prevent="searchPhoto">

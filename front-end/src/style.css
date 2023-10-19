@@ -1,0 +1,11 @@
+#appHeader {
+  height: 100px;
+}
+
+#appHeader .logo {
+  height: 100%;
+}
+
+#appHeader .logo img {
+  height: 100%;
+}
