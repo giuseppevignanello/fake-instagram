@@ -54,6 +54,9 @@ public class Photo {
 	@Column()
 	private boolean visible ;
 	
+	@Column() 
+	private boolean hidden;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
@@ -66,16 +69,25 @@ public class Photo {
 		
 	}
 	
-	public Photo(String title, String description, String url, boolean visible, User user) {
+	public Photo(String title, String description, String url, boolean visible, boolean hidden, User user) {
 		setTitle(title); 
 		setDescription(description); 
 		setUrl(url); 
 		setVisible(visible);
+		setHidden(hidden);
 		setUser(user); 
 	}
 	
 	
 
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	public boolean getHidden() {
+		return hidden;
+	}
+	
 	public Photo(PhotoDTO photoDTO) {
 		setTitle(photoDTO.getTitle()); 
 		setDescription(photoDTO.getDescription()); 

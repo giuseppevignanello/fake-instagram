@@ -45,7 +45,7 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		final String pwsAdmin = new BCryptPasswordEncoder().encode("password");
 		final String pwsUser = new BCryptPasswordEncoder().encode("password");
 		
-		User myAdmin = new User("admin", pwsAdmin, admin, user);
+		User myAdmin = new User("admin", pwsAdmin, admin);
 		User myUser = new User("user", pwsUser, user);
 		User myUser2 = new User("user2", pwsUser, user);
 		
@@ -53,9 +53,9 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		userService.save(myUser);
 		userService.save(myUser2);
 		
-		Photo photo1 = new Photo("Photo1", "La prima foto", "https://picsum.photos/200/300", true, myUser);
-		Photo photo2 = new Photo("Photo2", "La seconda foto", "https://picsum.photos/200/300", true, myUser);
-		Photo photo3 = new Photo("Photo3", "La terza foto", "https://picsum.photos/200/300", true, myUser2);
+		Photo photo1 = new Photo("Photo1", "La prima foto", "https://picsum.photos/200/300", true, false, myUser);
+		Photo photo2 = new Photo("Photo2", "La seconda foto", "https://picsum.photos/200/300", true, false, myUser);
+		Photo photo3 = new Photo("Photo3", "La terza foto", "https://picsum.photos/200/300", true, false, myUser2);
 		
 		photoService.save(photo1); 
 		photoService.save(photo2); 

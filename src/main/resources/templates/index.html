@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<a href="/categories"> See all the categories</a>
+	<a href="/categories" sec:authorize="hasAuthority('ADMIN')"> See all the categories</a>
 	<a href="/create"> Add new photo </a>
 	<form>
 		<label for="title">Search a photo</label>

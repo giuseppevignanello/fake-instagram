@@ -157,6 +157,10 @@ public class PhotoController {
 		photo.setUser(user);
 		
 		
+		if(userAuth.getUsername().equals("admin") && !photo.getVisible()) {
+			photo.setHidden(true);
+		}
+		
 		try {
 			photoService.save(photo); 
 		} catch (Exception e) {

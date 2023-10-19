@@ -19,11 +19,18 @@
 
 			<label for="url" maxlength="250">Photo URL</label>
 			<input type="text" name="url" th:field="*{url}" id="url" required />
-
+			
+			<div sec:authorize="hasAuthority('USER')" th:if="${!photo.hidden}">
 			<label for="visible">Do you want to show your photo?</label>
 			<input type="checkbox" name="visible" th:field="*{visible}" id="visible" />
+			</div>
+			
+			<div sec:authorize="hasAuthority('ADMIN')">
+			<label for="visible">Do you want to show your photo?</label>
+			<input type="checkbox" name="visible" th:field="*{visible}" id="visible" />
+			</div>
 
-			<button type="submit" value="CREATE"> Send </button>
+			<button type="submit" value="EDIT"> Send </button>
 
 			<h5>Categories</h5>
 			<div th:each="category : ${categories}" th:object="${category}">
