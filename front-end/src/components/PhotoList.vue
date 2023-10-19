@@ -2,9 +2,22 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import sendMessage from "./SendMessage.vue";
 const apiUrl = "http://localhost:8080/api/v1.0";
 const photos = ref(null);
 const showCategories = ref(false);
+const search = ref(false);
+const searchTerm = ref('');
+const searchResults = ref(null);
+
+
+function searchPhoto() {
+    axios.get(`${apiUrl}/filter/${searchTerm.value}`)
+        .then((response) => {
+            search.value = true;
+            searchResults.value = response.data;
+        })
+}
 function getAll() {
     axios.get(apiUrl)
         .then((response) => {
@@ -18,9 +31,22 @@ function getAll() {
 onMounted(() => {
     getAll();
 })
+
 </script>
 
 <template>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-6">
+                <form @submit.prevent="searchPhoto">
+                    <label class="form-label" for="search">Search a Photo</label>
+                    <input class="form-control" type="text" v-model="searchTerm" id="search"
+                        aria-label="default input example">
+                    <button type="submit" class="btn btn-primary mt-2">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="container  mt-3">
         <div v-if="search">
             <ul v-if="searchResults.length > 0" class="list-unstyled">
@@ -72,10 +98,10 @@ onMounted(() => {
                             <div>
                                 <i class="fa-regular fa-heart fa-xl"></i>
                             </div>
-                            <div>
+                            <div data-bs-toggle="modal" data-bs-target="#sendMessageModal">
                                 <i class="fa-regular fa-message fa-xl"></i>
                             </div>
-                            <div>
+                            <div data-bs-toggle="modal" data-bs-target="#sendMessageModal">
                                 <i class="fa-regular fa-paper-plane"></i>
                             </div>
                         </div>
@@ -97,6 +123,7 @@ onMounted(() => {
                 </li>
             </ul>
         </div>
+        <sendMessage></sendMessage>
     </div>
 </template>
 
