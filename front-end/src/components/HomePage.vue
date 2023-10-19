@@ -26,15 +26,17 @@ onMounted(() => {
   <div>
     <ul>
       <li v-for="photo in photos">
-        <h2>{{ photo.title }}</h2>
-        <p>{{ photo.description }}</p>
-        <img :src="photo.url" :alt="photo.tilte">
-        <h4>Categories</h4>
-        <ul>
-          <li v-for="category in photo.categories">
-            {{ category.name }}
-          </li>
-        </ul>
+        <div v-if="photo.visible">
+          <h2>{{ photo.title }}</h2>
+          <p>{{ photo.description }}</p>
+          <img :src="photo.url" :alt="photo.tilte">
+          <h4>Categories</h4>
+          <ul>
+            <li v-for="category in photo.categories">
+              {{ category.name }}
+            </li>
+          </ul>
+        </div>
       </li>
     </ul>
   </div>

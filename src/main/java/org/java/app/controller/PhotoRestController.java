@@ -38,13 +38,6 @@ public class PhotoRestController {
 		
 	}
 	
-	@PostMapping 
-	public ResponseEntity<Integer> save(@RequestBody PhotoDTO photoDTO) {
-		Photo photo = new Photo(photoDTO); 
-		photo = photoService.save(photo); 
-		return new ResponseEntity<>(photo.getId(), HttpStatus.OK); 
-	}
-	
 	@GetMapping("{id}")
 	public ResponseEntity<Photo> getPhoto(@PathVariable int id) {
 		Optional<Photo> optPhoto = photoService.findById(id); 
@@ -62,34 +55,6 @@ public class PhotoRestController {
 		return new ResponseEntity<List<Photo>>(filteredPhotos, HttpStatus.OK);
 	}
 	
-	@PutMapping("{id}")
-	public ResponseEntity<Photo> updatePhoto(@PathVariable int id, @RequestBody PhotoDTO photoDTO) {
-		Optional<Photo> optPhoto = photoService.findById(id); 
-		
-		if(optPhoto.isEmpty()) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); 
-		}
-		Photo photo = optPhoto.get(); 
-		photo.fillFromPhotoDTO(photoDTO);
-		try {
-			photo = photoService.save(photo); 
-			return new ResponseEntity<>(photo, HttpStatus.OK); 
-		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	@DeleteMapping("{id}")
-	public ResponseEntity<Boolean> deletePizza(@PathVariable int id) {
-		Optional<Photo> optPhoto = photoService.findById(id); 
-		if(optPhoto.isEmpty()) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND); 
-		}
-		
-		Photo photo = optPhoto.get(); 
-		photoService.delete(photo); 
-		return new ResponseEntity<>(true, HttpStatus.OK);
-	}
 	
 }
 
