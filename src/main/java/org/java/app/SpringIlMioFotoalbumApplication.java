@@ -53,20 +53,12 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		userService.save(myUser);
 		userService.save(myUser2);
 		
-		Photo photo1 = new Photo("Photo1", "La prima foto", "https://picsum.photos/200/300", true, false, myUser);
-		Photo photo2 = new Photo("Photo2", "La seconda foto", "https://picsum.photos/200/300", true, false, myUser);
-		Photo photo3 = new Photo("Photo3", "La terza foto", "https://picsum.photos/200/300", true, false, myUser2);
-		
-		photoService.save(photo1); 
-		photoService.save(photo2); 
-		photoService.save(photo3);
-		
-		
 		Category landscape = new Category("landscape");
 		Category portrait = new Category("portrait");
 		Category macro = new Category("macro");
 		Category wildlife = new Category("wildlife");
 		Category street = new Category("street");
+		Category food= new Category("food");
 		
 		
 		categoryService.save(landscape);
@@ -74,6 +66,18 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		categoryService.save(macro);
 		categoryService.save(wildlife);
 		categoryService.save(street);
+		categoryService.save(food);
+		
+		Photo photo1 = new Photo("Photo1", "La prima foto", "https://picsum.photos/200/300", true, false, myUser, landscape, portrait);
+		Photo photo2 = new Photo("Photo2", "La seconda foto", "https://picsum.photos/200/300", true, false, myUser, wildlife);
+		Photo photo3 = new Photo("Photo3", "La terza foto", "https://picsum.photos/200/300", true, false, myUser2, street, food);
+		
+		photoService.save(photo1); 
+		photoService.save(photo2); 
+		photoService.save(photo3);
+		
+		
+		
 		
 		
 

@@ -1,5 +1,6 @@
 package org.java.app.pojo;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
@@ -69,13 +70,14 @@ public class Photo {
 		
 	}
 	
-	public Photo(String title, String description, String url, boolean visible, boolean hidden, User user) {
+	public Photo(String title, String description, String url, boolean visible, boolean hidden, User user, Category...categories) {
 		setTitle(title); 
 		setDescription(description); 
 		setUrl(url); 
 		setVisible(visible);
 		setHidden(hidden);
 		setUser(user); 
+		setCategories(Arrays.asList(categories));
 	}
 	
 	
