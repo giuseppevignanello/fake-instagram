@@ -136,8 +136,8 @@ public class PhotoController {
 	}
 	
 	@PostMapping("/edit/{id}")
-	public String update(@Valid @ModelAttribute Photo photo,
-			BindingResult bindingResult, Model model) {
+	public String update(@PathVariable int id, @Valid @ModelAttribute Photo photo,
+			BindingResult bindingResult, Model model, Authentication auth) {
 		List<Photo> photos = photoService.findAll(); 
 		model.addAttribute("photos", photos);
 		
@@ -146,6 +146,16 @@ public class PhotoController {
 			bindingResult.getAllErrors().forEach(System.out::println);
 			return "edit";
 		}
+		
+		Optional<Photo> optPhoto = photoService.findById(id);
+		
+		if (optPhoto.isEmpty())
+			return "redirect:/";
+		
+		User userAuth = (User) auth.getPrincipal();
+		User user = optPhoto.get().getUser();
+		photo.setUser(user);
+		
 		
 		try {
 			photoService.save(photo); 
