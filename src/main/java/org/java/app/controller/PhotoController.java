@@ -49,15 +49,25 @@ public class PhotoController {
 	}
 
 	@GetMapping("/{id}")
-	public String show(Model model, @PathVariable int id ) {
+	public String show(Model model, @PathVariable int id, Authentication auth ) {
 		
+		User user = (User) auth.getPrincipal();
+		Optional<Photo> optPhoto = photoService.findById(id);
+		
+		if(optPhoto.isEmpty()) {
+			return "redirect:/";
+		}
+		Photo photo = optPhoto.get();
+		if(user.getId() == 1 || photo.getUser().getId() == user.getId()) {
+			List<Category> categories = photo.getCategories();
+			model.addAttribute("photo", photo);
+			model.addAttribute("categories", categories);
 
-		Optional<Photo> photo = photoService.findById(id);
-		List<Category> categories = photo.get().getCategories();
-		model.addAttribute("photo", photo.get());
-		model.addAttribute("categories", categories);
-
-		return "show";
+			return "show";
+		} else {
+			return "redirect:/";
+		}
+		
 
 	}
 
@@ -72,7 +82,7 @@ public class PhotoController {
 	
 	@PostMapping("/create")
 	public String store(@Valid @ModelAttribute Photo photo,
-			BindingResult bindingResult, Model model) {
+			BindingResult bindingResult, Model model, Authentication auth) {
 		
 		List<Photo> photos = photoService.findAll(); 
 		model.addAttribute("photos", photos);
@@ -82,6 +92,9 @@ public class PhotoController {
 			bindingResult.getAllErrors().forEach(System.out::println);
 			return "create";
 		}
+		
+		photo.setUser((User) auth.getPrincipal());
+		
 		try {
 			photoService.save(photo); 
 			List<Category> categories = categoryService.findAll(); 
@@ -100,11 +113,25 @@ public class PhotoController {
 	}
 	
 	@GetMapping("/edit/{id}")
-	public String edit (@PathVariable int id, Model model) {
-		List<Category> categories = categoryService.findAll();
-		model.addAttribute("photo", photoService.findById(id));
-		model.addAttribute("categories", categories); 
-		return "edit"; 
+	public String edit (@PathVariable int id, Model model, Authentication auth) {
+		User user = (User) auth.getPrincipal();
+		
+		Optional<Photo> optPhoto = photoService.findById(id);
+		
+		if(optPhoto.isEmpty()) {
+			return "redirect:/";
+		}
+		
+		Photo photo = optPhoto.get();
+		if(user.getId() == 1 || photo.getUser().getId() == user.getId()) {
+			List<Category> categories = categoryService.findAll();
+			model.addAttribute("photo", photo);
+			model.addAttribute("categories", categories); 
+			return "edit"; 
+		} else {
+			return "redirect:/";
+		}
+		
 		
 	}
 	
@@ -133,7 +160,11 @@ public class PhotoController {
 	public String delete(@PathVariable int id, Photo photo, Model model) {
 		List<Photo> photos = photoService.findAll(); 
 		model.addAttribute("photos", photos); 
+		
 		Optional<Photo> photoToDelete = photoService.findById(id);
+		if(photoToDelete.isEmpty()) {
+			return "redirect:/";
+		}
 		photoService.delete(photoToDelete.get());
 		return "redirect:/";
 	}
