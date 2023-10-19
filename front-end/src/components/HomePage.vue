@@ -7,7 +7,20 @@ const photos = ref(null);
 const search = ref(false);
 const searchTerm = ref('');
 const searchResults = ref(null);
+const message = ref({
+  email: '',
+  content: ''
+})
 
+function sendMessage() {
+
+  axios.post(`${apiUrl}/send`, message.value)
+    .then(() => {
+      message.value = ref({ ...message });
+    }).catch((error) => {
+      console.error(error)
+    })
+}
 
 function searchPhoto() {
   axios.get(`${apiUrl}/filter/${searchTerm.value}`)
@@ -77,6 +90,19 @@ onMounted(() => {
         </div>
       </li>
     </ul>
+    <div class="contact">
+      <form @submit.prevent="sendMessage" id="messageForm">
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required v-model="message.email">
+        </div>
+        <div>
+          <label for="content">Contenuto:</label>
+          <textarea id="content" name="content" rows="4" required v-model="message.content"></textarea>
+        </div>
+        <button type="submit">Invia Messaggio</button>
+      </form>
+    </div>
   </div>
 </template>
 

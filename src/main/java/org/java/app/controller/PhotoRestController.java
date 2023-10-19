@@ -1,21 +1,21 @@
 package org.java.app.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.java.app.pojo.Message;
 import org.java.app.pojo.Photo;
-import org.java.app.pojo.PhotoDTO;
 import org.java.app.repo.PhotoRepo;
+import org.java.app.service.MessageService;
 import org.java.app.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +30,9 @@ public class PhotoRestController {
 	
 	@Autowired 
 	private PhotoRepo photoRepo;
+	
+	@Autowired
+	private MessageService messageService; 
 	
 	@GetMapping 
 	public ResponseEntity<List<Photo>> getAll() {
@@ -53,6 +56,14 @@ public class PhotoRestController {
 	public ResponseEntity<List<Photo>> getFilteredPhotos(@PathVariable String filter) {
 		List<Photo> filteredPhotos = photoRepo.findByTitleContaining(filter);
 		return new ResponseEntity<List<Photo>>(filteredPhotos, HttpStatus.OK);
+	}
+	
+	@PostMapping("/send")
+	public ResponseEntity<Boolean> send(@RequestBody Message message) {
+		message.setDate(LocalDate.now());
+		messageService.save(message);
+		
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
 	
 	

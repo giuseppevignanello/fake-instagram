@@ -87,13 +87,7 @@ public class Photo {
 	public boolean getHidden() {
 		return hidden;
 	}
-	
-	public Photo(PhotoDTO photoDTO) {
-		setTitle(photoDTO.getTitle()); 
-		setDescription(photoDTO.getDescription()); 
-		setUrl(photoDTO.getUrl()); 
-		setVisible(photoDTO.getVisible());
-	}
+
 
 	public int getId() {
 		return id;
@@ -171,12 +165,6 @@ public class Photo {
 		getCategories().remove(category);
 	}
 	
-	public void fillFromPhotoDTO(PhotoDTO photoDTO) {
-		setTitle(photoDTO.getTitle()); 
-		setDescription(photoDTO.getDescription()); 
-		setUrl(photoDTO.getUrl()); 
-		setVisible(photoDTO.getVisible());
-	}
 	
 	 @Override
 	    public String toString() {
