@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -31,7 +32,7 @@ public class Category {
 	private String name;
 	
 	@ManyToMany(mappedBy = "categories")
-	@JsonManagedReference 
+	@JsonBackReference
 	private List<Photo> photos; 
 	
 	public Category() {
