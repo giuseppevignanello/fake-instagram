@@ -3,6 +3,7 @@ package org.java.app.pojo;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
+import org.java.app.auth.pojo.User;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -11,8 +12,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -51,6 +54,10 @@ public class Photo {
 	@Column()
 	private boolean visible ;
 	
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	private User user;
+	
 	@ManyToMany
 	@JsonManagedReference 
 	private List<Category> categories; 
@@ -59,13 +66,16 @@ public class Photo {
 		
 	}
 	
-	public Photo(String title, String description, String url, boolean visible) {
+	public Photo(String title, String description, String url, boolean visible, User user) {
 		setTitle(title); 
 		setDescription(description); 
 		setUrl(url); 
 		setVisible(visible);
+		setUser(user); 
 	}
 	
+	
+
 	public Photo(PhotoDTO photoDTO) {
 		setTitle(photoDTO.getTitle()); 
 		setDescription(photoDTO.getDescription()); 
@@ -80,6 +90,16 @@ public class Photo {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	
 
 	public void setTitle(String title) {
 		this.title = title;

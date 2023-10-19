@@ -3,11 +3,13 @@ package org.java.app.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.java.app.auth.pojo.User;
 import org.java.app.pojo.Category;
 import org.java.app.pojo.Photo;
 import org.java.app.service.CategoryService;
 import org.java.app.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,15 +32,25 @@ public class PhotoController {
 	private CategoryService categoryService;
 
 	@GetMapping("/")
-	public String getIndex(Model model, @RequestParam(required = false) String title) {
-		List<Photo> photos = title == null ? photoService.findAll() : photoService.filterByName(title, title);
-		model.addAttribute("photos", photos);
+	public String getIndex(Model model, @RequestParam(required = false) String title, Authentication auth) {
+		User user = (User) auth.getPrincipal();
+		if(user.getUsername().equals("admin")) {
+			List<Photo> photos = title == null ? photoService.findAll() : photoService.filterByName(title, title);
+			model.addAttribute("photos", photos);
+		} else {
+			List<Photo> photos = title == null 
+					? photoService.findUserPhotos(user)
+					: photoService.filterByNameUser(user, title, title);
+					model.addAttribute("photos", photos);
+		}
+		
 		return "index";
 
 	}
 
 	@GetMapping("/{id}")
-	public String show(Model model, @PathVariable int id) {
+	public String show(Model model, @PathVariable int id ) {
+		
 
 		Optional<Photo> photo = photoService.findById(id);
 		List<Category> categories = photo.get().getCategories();
@@ -123,7 +135,7 @@ public class PhotoController {
 		model.addAttribute("photos", photos); 
 		Optional<Photo> photoToDelete = photoService.findById(id);
 		photoService.delete(photoToDelete.get());
-;		return "redirect:/";
+		return "redirect:/";
 	}
 
 				

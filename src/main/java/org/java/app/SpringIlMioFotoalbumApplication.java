@@ -35,9 +35,27 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		Photo photo1 = new Photo("Photo1", "La prima foto", "https://picsum.photos/200/300", true);
-		Photo photo2 = new Photo("Photo2", "La seconda foto", "https://picsum.photos/200/300", true);
-		Photo photo3 = new Photo("Photo3", "La terza foto", "https://picsum.photos/200/300", true);
+		
+		Role admin = new Role("ADMIN");
+		Role user = new Role("USER");
+		
+		roleService.save(admin);
+		roleService.save(user);
+		
+		final String pwsAdmin = new BCryptPasswordEncoder().encode("password");
+		final String pwsUser = new BCryptPasswordEncoder().encode("password");
+		
+		User myAdmin = new User("admin", pwsAdmin, admin, user);
+		User myUser = new User("user", pwsUser, user);
+		User myUser2 = new User("user2", pwsUser, user);
+		
+		userService.save(myAdmin);
+		userService.save(myUser);
+		userService.save(myUser2);
+		
+		Photo photo1 = new Photo("Photo1", "La prima foto", "https://picsum.photos/200/300", true, myUser);
+		Photo photo2 = new Photo("Photo2", "La seconda foto", "https://picsum.photos/200/300", true, myUser);
+		Photo photo3 = new Photo("Photo3", "La terza foto", "https://picsum.photos/200/300", true, myUser2);
 		
 		photoService.save(photo1); 
 		photoService.save(photo2); 
@@ -57,20 +75,7 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner{
 		categoryService.save(wildlife);
 		categoryService.save(street);
 		
-		Role admin = new Role("ADMIN");
-		Role user = new Role("USER");
 		
-		roleService.save(admin);
-		roleService.save(user);
-		
-		final String pwsAdmin = new BCryptPasswordEncoder().encode("password");
-		final String pwsUser = new BCryptPasswordEncoder().encode("password");
-		
-		User myAdmin = new User("admin", pwsAdmin, admin, user);
-		User myUser = new User("user", pwsUser, user);
-		
-		userService.save(myAdmin);
-		userService.save(myUser);
 
 	}
 

@@ -3,6 +3,7 @@ package org.java.app.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.java.app.auth.pojo.User;
 import org.java.app.pojo.Photo;
 import org.java.app.repo.PhotoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,13 @@ public class PhotoService {
 	public void delete(Photo photo) {
 		photoRepo.delete(photo);
 		
+	}
+
+	public List<Photo> findUserPhotos(User user) {
+		return photoRepo.findByUser(user);
+	}
+
+	public List<Photo> filterByNameUser(User user, String title, String description) {
+		return photoRepo.findByUserAndTitleContainingOrUserAndDescriptionContaining(user, title, user, description);
 	}
 }
