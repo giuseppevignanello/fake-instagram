@@ -65,6 +65,13 @@ public class Photo {
 		setUrl(url); 
 		setVisible(visible);
 	}
+	
+	public Photo(PhotoDTO photoDTO) {
+		setTitle(photoDTO.getTitle()); 
+		setDescription(photoDTO.getDescription()); 
+		setUrl(photoDTO.getUrl()); 
+		setVisible(photoDTO.getVisible());
+	}
 
 	public int getId() {
 		return id;
@@ -130,6 +137,13 @@ public class Photo {
 	}
 	public void removeCategory(Category category) {
 		getCategories().remove(category);
+	}
+	
+	public void fillFromPhotoDTO(PhotoDTO photoDTO) {
+		setTitle(photoDTO.getTitle()); 
+		setDescription(photoDTO.getDescription()); 
+		setUrl(photoDTO.getUrl()); 
+		setVisible(photoDTO.getVisible());
 	}
 	
 	 @Override
