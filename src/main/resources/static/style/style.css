@@ -1,0 +1,54 @@
+.profile_image {
+	width: 200px;
+	height: 200px;
+}
+
+.profile_image img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+
+.user_data {
+	font-size: 20px;
+}
+
+.photo_image {
+	width: 300px;
+	height:300px;
+	position: relative;
+}
+
+.photo_image:hover img {
+	opacity: 0.5;
+}
+
+.photo_image:hover .buttons{
+	display: flex;
+}
+
+.photo_image:hover .photo_title{
+	display: block;
+}
+
+.photo_image img {
+	width: 100%; 
+	height: 100%
+}
+
+.buttons {
+	position: absolute;
+	top: 50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	display: none;
+}
+
+.photo_title {
+	position: absolute;
+	top: 30%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	display: none;
+}
+
