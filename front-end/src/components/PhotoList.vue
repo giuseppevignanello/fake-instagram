@@ -5,10 +5,16 @@ import axios from 'axios';
 import sendMessage from "./SendMessage.vue";
 const apiUrl = "http://localhost:8080/api/v1.0";
 const photos = ref(null);
-const showCategories = ref(false);
 const showSearchBar = ref(false);
 const search = ref(false);
 const searchTerm = ref('');
+
+function showCategories(id) {
+    const categories = document.getElementById(id + "_category");
+    console.log(categories)
+    categories.classList.toggle("d-none")
+
+}
 
 
 function searchPhoto() {
@@ -118,9 +124,11 @@ onMounted(() => {
                         <p>Liked by <strong> Vignanello </strong> and <strong> others </strong></p>
                     </div>
                     <span class="mb-1 photo_description"> <strong> description </strong> {{ photo.description }}</span>
-                    <span @click="showCategories = !showCategories" class="show_categories">Mostra tutte le
+                    <span @click="showCategories(photo.id)" id="{{ photo.id }}_click_category"
+                        class="show_categories">Mostra
+                        tutte le
                         categorie</span>
-                    <ul class="list-unstyled" :class="{ 'd-none': !showCategories }">
+                    <ul :id="photo.id + '_category'" class="list-unstyled d-none">
                         <li v-for="category in photo.categories">
                             {{ category.name }}
                         </li>
