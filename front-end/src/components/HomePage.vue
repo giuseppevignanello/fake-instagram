@@ -1,7 +1,9 @@
 
 <script setup>
 
+import AppHeader from './AppHeader.vue';
 import PhotoList from './PhotoList.vue';
+import AppFooter from './AppFooter.vue'
 
 
 
@@ -9,7 +11,9 @@ import PhotoList from './PhotoList.vue';
 </script>
 
 <template>
+  <AppHeader></AppHeader>
   <PhotoList></PhotoList>
+  <AppFooter></AppFooter>
 </template>
 
 
