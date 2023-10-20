@@ -9,14 +9,17 @@ const showSearchBar = ref(false);
 const search = ref(false);
 const searchTerm = ref('');
 
+
+function like(id) {
+    const heart = document.getElementById(id + "_heart");
+    heart.classList.toggle("text-danger")
+}
+
 function showCategories(id) {
     const categories = document.getElementById(id + "_category");
-    console.log(categories)
     categories.classList.toggle("d-none")
 
 }
-
-
 function searchPhoto() {
     axios.get(`${apiUrl}/filter/${searchTerm.value}`)
         .then((response) => {
@@ -103,18 +106,18 @@ onMounted(() => {
 
                     <div class="mt-3">
                         <div class="photo_image">
-                            <img :src="photo.url" :alt="photo.tilte">
+                            <img @dblclick="like(photo.id)" :src="photo.url" :alt="photo.tilte">
                         </div>
                     </div>
                     <div class="icons mt-2 d-flex gap-2">
-                        <div>
-                            <i class="fa-regular fa-heart fa-xl"></i>
+                        <div @click="like(photo.id)">
+                            <i :id="photo.id + '_heart'" class="fa-solid fa-heart fa-xl"></i>
                         </div>
                         <div data-bs-toggle="modal" data-bs-target="#sendMessageModal">
-                            <i class="fa-regular fa-message fa-xl"></i>
+                            <i class="fa-solid fa-message fa-xl"></i>
                         </div>
                         <div data-bs-toggle="modal" data-bs-target="#sendMessageModal">
-                            <i class="fa-regular fa-paper-plane"></i>
+                            <i class="fa-solid fa-paper-plane"></i>
                         </div>
                     </div>
                     <div class="liked_by mt-2 d-flex gap-1">
