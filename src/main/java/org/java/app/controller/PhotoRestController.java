@@ -24,48 +24,73 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RequestMapping("/api/v1.0")
 public class PhotoRestController {
-	
+
 	@Autowired
-	private PhotoService photoService; 
-	
-	@Autowired 
+	private PhotoService photoService;
+
+	@Autowired
 	private PhotoRepo photoRepo;
-	
+
 	@Autowired
-	private MessageService messageService; 
-	
-	@GetMapping 
+	private MessageService messageService;
+
+	@GetMapping
 	public ResponseEntity<List<Photo>> getAll() {
-		List<Photo> photos = photoService.findAll(); 
-		return new ResponseEntity<>(photos, HttpStatus.OK); 
-		
+		List<Photo> photos = photoService.findAll();
+		return new ResponseEntity<>(photos, HttpStatus.OK);
+
 	}
-	
+
 	@GetMapping("{id}")
 	public ResponseEntity<Photo> getPhoto(@PathVariable int id) {
-		Optional<Photo> optPhoto = photoService.findById(id); 
-		
-		if(optPhoto.isEmpty()) {
-			 
+		Optional<Photo> optPhoto = photoService.findById(id);
+
+		if (optPhoto.isEmpty()) {
+
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(optPhoto.get(), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/filter/{filter}")
 	public ResponseEntity<List<Photo>> getFilteredPhotos(@PathVariable String filter) {
 		List<Photo> filteredPhotos = photoRepo.findByTitleContaining(filter);
 		return new ResponseEntity<List<Photo>>(filteredPhotos, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/send")
 	public ResponseEntity<Boolean> send(@RequestBody Message message) {
 		message.setDate(LocalDate.now());
 		messageService.save(message);
-		
+
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 	}
-	
-	
-}
 
+	@PostMapping("/likes_increment/{id}")
+	public ResponseEntity<Photo> likesIncrement(@PathVariable int id) {
+		Optional<Photo> optPhoto = photoService.findById(id);
+		if (optPhoto.isEmpty()) {
+
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		Photo photo = optPhoto.get();
+		photo.incrementLikes();
+		photoService.save(photo);
+		return ResponseEntity.ok(photo);
+
+	}
+	@PostMapping("/likes_decrement/{id}")
+	public ResponseEntity<Photo> likesDecrement(@PathVariable int id) {
+		Optional<Photo> optPhoto = photoService.findById(id);
+
+		if (optPhoto.isEmpty()) {
+
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		Photo photo = optPhoto.get();
+		photo.decrementLikes();
+		photoService.save(photo);
+		return ResponseEntity.ok(photo);
+
+	}
+}

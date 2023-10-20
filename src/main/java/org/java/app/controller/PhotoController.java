@@ -93,6 +93,7 @@ public class PhotoController {
 			return "create";
 		}
 		
+		photo.setLikes(0);
 		photo.setUser((User) auth.getPrincipal());
 		
 		try {

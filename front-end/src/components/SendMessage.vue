@@ -41,7 +41,7 @@ function sendMessage() {
                             <label class="form-label" for="content">Contenut</label>
                             <textarea class="form-control" id="content" name="content" rows="4" required
                                 v-model="message.content"></textarea>
-                            <button type="submit" class="mt-2 btn btn-primary">Send Message</button>
+                            <button type="submit" class="mt-2 btn bg_gradient text-white">Send Message</button>
                         </div>
                     </form>
                 </div>

@@ -58,6 +58,9 @@ public class Photo {
 	@Column() 
 	private boolean hidden;
 	
+	@Column()
+	private int likes;
+	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
@@ -70,17 +73,22 @@ public class Photo {
 		
 	}
 	
-	public Photo(String title, String description, String url, boolean visible, boolean hidden, User user, Category...categories) {
+	public Photo(String title, String description, String url, boolean visible, boolean hidden, int likes, User user, Category...categories) {
 		setTitle(title); 
 		setDescription(description); 
 		setUrl(url); 
 		setVisible(visible);
 		setHidden(hidden);
+		setLikes(likes);
 		setUser(user); 
 		setCategories(Arrays.asList(categories));
 	}
 	
 	
+
+	public void setLikes(int likes) {
+		this.likes = likes; 		
+	}
 
 	public void setHidden(boolean hidden) {
 		this.hidden = hidden;
@@ -88,6 +96,10 @@ public class Photo {
 
 	public boolean getHidden() {
 		return hidden;
+	}
+	
+	public int getLikes() {
+		return likes;
 	}
 
 
@@ -165,6 +177,14 @@ public class Photo {
 	}
 	public void removeCategory(Category category) {
 		getCategories().remove(category);
+	}
+	
+	public void incrementLikes() {
+		likes++;
+	}
+	
+	public void decrementLikes() {
+		likes--;
 	}
 	
 	

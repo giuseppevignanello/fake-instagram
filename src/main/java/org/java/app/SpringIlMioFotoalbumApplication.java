@@ -68,11 +68,11 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner {
 
 		Photo bear = new Photo("bear", "A bear in its natural habitat",
 				"https://cdn.naturettl.com/wp-content/uploads/2020/08/04123339/creative-ways-to-improve-your-wildlife-photography-800x534.jpg?p=20603",
-				true, false, myUser, landscape, wildlife);
+				true, false, 0, myUser, landscape, wildlife);
 		Photo red_hiding_hood = new Photo("Red Hiding Hood", "A little girl dressed as a red riding hood",
 				"https://images.unsplash.com/photo-1624711517157-25991163e537?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cG9ydHJhaXQlMjBwaG90b2dyYXBoeXxlbnwwfHwwfHx8MA%3D%3D",
-				true, false, myUser, portrait);
-		Photo thai_food = new Photo("Street Food in Thailand", "La terza foto", "https://images.pexels.com/photos/920570/pexels-photo-920570.jpeg?cs=srgb&dl=pexels-min-an-920570.jpg&fm=jpg", true, false, myUser2,
+				true, false, 0, myUser, portrait);
+		Photo thai_food = new Photo("Street Food in Thailand", "La terza foto", "https://images.pexels.com/photos/920570/pexels-photo-920570.jpeg?cs=srgb&dl=pexels-min-an-920570.jpg&fm=jpg", true, false, 0, myUser2,
 				street, food);
 
 		photoService.save(bear);

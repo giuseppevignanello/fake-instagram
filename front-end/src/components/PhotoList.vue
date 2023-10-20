@@ -12,6 +12,18 @@ const searchTerm = ref('');
 
 function like(id) {
     const heart = document.getElementById(id + "_heart");
+    if (heart.classList.contains("text-danger")) {
+        axios.post(`${apiUrl}/likes_decrement/${id}`, id)
+            .catch((error) => {
+                console.error(error)
+            })
+    } else {
+        axios.post(`${apiUrl}/likes_increment/${id}`, id)
+            .catch((error) => {
+                console.error(error)
+            })
+    }
+
     heart.classList.toggle("text-danger")
 }
 
@@ -85,7 +97,7 @@ onMounted(() => {
                     <label class="form-label" for="search">Search a Photo</label>
                     <input class="form-control" type="text" v-model="searchTerm" id="search"
                         aria-label="default input example">
-                    <button type="submit" class="btn btn-primary mt-2">Search</button>
+                    <button type="submit" class="btn bg_gradient text-white mt-2">Search</button>
                 </form>
             </div>
         </div>
