@@ -36,7 +36,8 @@ onMounted(() => {
 
 <template>
     <div class="container">
-        <p class="text-center fs-6"> Click on a story to open the search function</p>
+        <p class="text-center fs-6"> Click on a story to open the search function <br> On comment/message button to send a
+            message</p>
         <div class="stories d-flex gap-2 justify-content-between my-3 mx-2">
             <div @click="showSearchBar = !showSearchBar" class="story">
                 <img src="https://www.wilsoncenter.org/sites/default/files/media/images/person/james-person-1.jpg" alt="">
